@@ -1,0 +1,14 @@
+# Tools for environment variables
+.envrc
+.env
+
+# Editors
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# General
+tmp/
+*.log
