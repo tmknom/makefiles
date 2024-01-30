@@ -1,0 +1,72 @@
+# This option causes make to display a warning whenever an undefined variable is expanded.
+MAKEFLAGS += --warn-undefined-variables
+
+# Disable any builtin pattern rules, then speedup a bit.
+MAKEFLAGS += --no-builtin-rules
+
+# If this variable is not set, the program /bin/sh is used as the shell.
+SHELL := /bin/bash
+
+# The arguments passed to the shell are taken from the variable .SHELLFLAGS.
+#
+# The -e flag causes bash with qualifications to exit immediately if a command it executes fails.
+# The -u flag causes bash to exit with an error message if a variable is accessed without being defined.
+# The -o pipefail option causes bash to exit if any of the commands in a pipeline fail.
+# The -c flag is in the default value of .SHELLFLAGS and we must preserve it.
+# Because it is how make passes the script to be executed to bash.
+.SHELLFLAGS := -eu -o pipefail -c
+
+# Disable any builtin suffix rules, then speedup a bit.
+.SUFFIXES:
+
+# Sets the default goal to be used if no targets were specified on the command line.
+.DEFAULT_GOAL := help
+
+# Variables: fundamentals
+ROOT_DIR ?= $(shell $(GIT) rev-parse --show-toplevel)
+
+# Variables: commands
+GIT ?= $(shell \command -v git 2>/dev/null)
+DOCKER ?= $(shell \command -v docker 2>/dev/null)
+DOCKER_RUN ?= $(DOCKER) run $(DOCKER_OPTIONS)
+SECURE_DOCKER_RUN ?= $(DOCKER_RUN) $(DOCKER_SECURE_OPTIONS)
+DOCKER_OPTIONS ?=
+DOCKER_OPTIONS += -it
+DOCKER_OPTIONS += --rm
+DOCKER_OPTIONS += -v $(ROOT_DIR):$(ROOT_DIR)
+DOCKER_OPTIONS += -w $(ROOT_DIR)
+DOCKER_SECURE_OPTIONS ?=
+DOCKER_SECURE_OPTIONS += --read-only
+DOCKER_SECURE_OPTIONS += --security-opt no-new-privileges
+DOCKER_SECURE_OPTIONS += --cap-drop all
+DOCKER_SECURE_OPTIONS += --network none
+
+# Variables: container images
+ACTIONLINT ?= $(SECURE_DOCKER_RUN) rhysd/actionlint:latest
+YAMLLINT ?= $(SECURE_DOCKER_RUN) ghcr.io/tmknom/dockerfiles/yamllint:latest
+PRETTIER ?= $(SECURE_DOCKER_RUN) ghcr.io/tmknom/dockerfiles/prettier:latest
+
+# Targets: Lint code
+.PHONY: lint
+lint: lint/workflow lint/yaml ## Lint workflow files and YAML files
+
+.PHONY: lint/workflow
+lint/workflow:
+	$(ACTIONLINT) -color || true
+
+.PHONY: lint/yaml
+lint/yaml:
+	$(YAMLLINT) --strict . || true
+
+# Targets: Format code
+.PHONY: fmt
+fmt: fmt/yaml ## Format YAML files
+
+.PHONY: fmt/yaml
+fmt/yaml:
+	$(PRETTIER) --write --parser=yaml $(shell find . -name '*.y*ml')
+
+# Targets: help
+.PHONY: help
+help: ## Display help for all targets
+	@grep --no-filename -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
