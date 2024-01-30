@@ -1,0 +1,16 @@
+enhancement:
+  - head-branch: ["^feat"]
+
+bug:
+  - head-branch: ["^fix"]
+
+test:
+  - head-branch: ["^test"]
+
+docs:
+  - head-branch: ["^docs"]
+  - changed-files:
+      - any-glob-to-any-file: ["**.md"]
+
+chore:
+  - head-branch: ["^chore"]
