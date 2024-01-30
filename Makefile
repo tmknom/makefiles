@@ -24,9 +24,11 @@ SHELL := /bin/bash
 
 # Variables: fundamentals
 ROOT_DIR ?= $(shell $(GIT) rev-parse --show-toplevel)
+RELEASE_WORKFLOW ?= release.yml
 
 # Variables: commands
 GIT ?= $(shell \command -v git 2>/dev/null)
+GH ?= $(shell \command -v gh 2>/dev/null)
 DOCKER ?= $(shell \command -v docker 2>/dev/null)
 DOCKER_RUN ?= $(DOCKER) run $(DOCKER_OPTIONS)
 SECURE_DOCKER_RUN ?= $(DOCKER_RUN) $(DOCKER_SECURE_OPTIONS)
@@ -65,6 +67,43 @@ fmt: fmt/yaml ## Format YAML files
 .PHONY: fmt/yaml
 fmt/yaml:
 	$(PRETTIER) --write --parser=yaml $(shell find . -name '*.y*ml')
+
+# Targets: Release
+.PHONY: release
+release: ## Start release process
+	@read -p "Bump up to (patch / minor / major): " answer && \
+	case "$${answer}" in \
+		'patch') make release/patch ;; \
+		'minor') make release/minor ;; \
+		'major') make release/major ;; \
+		*) echo "Error: invalid parameter: $${answer}"; exit 1 ;; \
+	esac && \
+	make release/show
+
+.PHONY: release/patch
+release/patch:
+	$(GH) workflow run $(RELEASE_WORKFLOW) -f level=patch
+
+.PHONY: release/minor
+release/minor:
+	$(GH) workflow run $(RELEASE_WORKFLOW) -f level=minor
+
+.PHONY: release/major
+release/major:
+	@read -p "Confirm major version upgrade? (y/N):" answer && \
+	case "$${answer}" in \
+	  [yY]*) $(GH) workflow run $(RELEASE_WORKFLOW) -f level=major ;; \
+	  *) echo "Cancel major version upgrade." ;; \
+	esac
+
+.PHONY: release/show
+release/show:
+	@echo 'Starting release...'
+	@sleep 5
+	@id=$$($(GH) run list --limit 1 --json databaseId --jq '.[0].databaseId' --workflow $(RELEASE_WORKFLOW)) && \
+	$(GH) run watch $${id}
+	@sleep 1
+	$(GH) release view --web
 
 # Targets: help
 .PHONY: help
