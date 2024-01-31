@@ -48,6 +48,10 @@ ACTIONLINT ?= $(SECURE_DOCKER_RUN) rhysd/actionlint:latest
 YAMLLINT ?= $(SECURE_DOCKER_RUN) ghcr.io/tmknom/dockerfiles/yamllint:latest
 PRETTIER ?= $(SECURE_DOCKER_RUN) ghcr.io/tmknom/dockerfiles/prettier:latest
 
+# Targets: Build code
+.PHONY: build
+build: fmt lint ## Run format and lint
+
 # Targets: Lint code
 .PHONY: lint
 lint: lint/workflow lint/yaml ## Lint workflow files and YAML files
