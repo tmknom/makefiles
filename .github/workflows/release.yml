@@ -16,76 +16,10 @@ concurrency: ${{ github.workflow }}
 
 permissions: {}
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+  call:
+    uses: tmknom/release-workflows/.github/workflows/reusable-workflows.yml@v0
+    with:
+      level: ${{ inputs.level }}
     permissions:
       contents: write
-      pull-requests: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Git Config
-        run: |
-          set -x
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "EMAIL: 41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Bump version
-        env:
-          BUMP_LEVEL: ${{ inputs.level }}
-        run: |
-          set -x
-          git fetch --tag
-          current="$(git tag --sort=-v:refname | head -1)"
-          if [[ "${current}" == "" ]]; then
-            current="v0.0.0"
-          fi
-
-          IFS='.' read -ra versions <<<"${current#v}"
-          major="${versions[0]}"
-          minor="${versions[1]}"
-          patch="${versions[2]}"
-
-          case "${BUMP_LEVEL}" in
-            major)
-              major="$((major + 1))"
-              minor=0
-              patch=0
-              ;;
-            minor)
-              minor="$((minor + 1))"
-              patch=0
-              ;;
-            patch)
-              patch="$((patch + 1))"
-              ;;
-            *)
-              printf "invalid argument: %s" "${BUMP_LEVEL}" >&2
-              exit 1
-              ;;
-          esac
-
-          echo "VERSION=v${major}.${minor}.${patch}" >> "${GITHUB_ENV}"
-
-      - name: Push version tag
-        run: |
-          set -x
-          major="${VERSION%%.*}"
-          git tag --force --message "${VERSION}" "${VERSION}"
-          git tag --force --message "${VERSION}" "${major}"
-          git push --force origin "${VERSION}"
-          git push --force origin "${major}"
-
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          set -x
-          gh release create "${VERSION}" --title "${VERSION}" --generate-notes
