@@ -9,27 +9,8 @@ concurrency:
 
 permissions: {}
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+  call:
+    uses: tmknom/lint-workflows/.github/workflows/reusable-workflows.yml@v0
     permissions:
       contents: read
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Run yamllint
-        run: |
-          set -x
-          yamllint --strict --format github --config-file ".yamllint.yml" .
-
-      - name: Run actionlint
-        run: |
-          set -x
-          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-          ./actionlint -color
