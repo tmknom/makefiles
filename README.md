@@ -11,8 +11,8 @@ This is a collection of Makefiles to facilitate development for GitHub Actions.
 At the beginning of your `Makefile` add, the following:
 
 ```makefile
--include .makefiles/reusable-workflows/Makefile
-.makefiles/reusable-workflows/Makefile:
+-include .makefiles/Makefile
+.makefiles/Makefile:
 	@git clone https://github.com/tmknom/makefiles.git .makefiles >/dev/null 2>&1
 ```
 
@@ -23,6 +23,22 @@ Run `make help` to view a list of available targets.
 
 > [!NOTE]
 > Highly recommend adding the `.makefiles` directory to your `.gitignore`.
+
+### Composite Action
+
+```makefile
+-include .makefiles/composite-action/Makefile
+.makefiles/composite-action/Makefile:
+	@git clone https://github.com/tmknom/makefiles.git .makefiles >/dev/null 2>&1
+```
+
+### Reusable Workflows
+
+```makefile
+-include .makefiles/reusable-workflows/Makefile
+.makefiles/reusable-workflows/Makefile:
+	@git clone https://github.com/tmknom/makefiles.git .makefiles >/dev/null 2>&1
+```
 
 ## Release notes
 
