@@ -26,8 +26,10 @@ Run `make help` to view a list of available targets.
 
 ## Release notes
 
-See [GitHub Releases](https://github.com/tmknom/makefiles/releases).
+See [GitHub Releases][releases].
 
 ## License
 
-Apache 2 Licensed. See [LICENSE](/LICENSE) for full details.
+Apache 2 Licensed. See [LICENSE](LICENSE) for full details.
+
+[releases]: https://github.com/tmknom/makefiles/releases
