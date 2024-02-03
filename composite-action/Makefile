@@ -47,6 +47,7 @@ DOCKER_SECURE_OPTIONS += --network none
 ACTIONLINT ?= $(SECURE_DOCKER_RUN) rhysd/actionlint:latest
 YAMLLINT ?= $(SECURE_DOCKER_RUN) ghcr.io/tmknom/dockerfiles/yamllint:latest
 PRETTIER ?= $(SECURE_DOCKER_RUN) ghcr.io/tmknom/dockerfiles/prettier:latest
+ACTDOCS ?= $(SECURE_DOCKER_RUN) ghcr.io/tmknom/actdocs:latest
 
 # Targets: Build code
 .PHONY: build
@@ -71,6 +72,11 @@ fmt: fmt/yaml ## Format YAML files
 .PHONY: fmt/yaml
 fmt/yaml:
 	$(PRETTIER) --write --parser=yaml $(shell find . -name '*.y*ml')
+
+# Targets: Generate document
+.PHONY: docs
+docs: ## Generate documentation for README
+	$(ACTDOCS) inject --sort --file=README.md action.yml
 
 # Targets: Release
 .PHONY: release
