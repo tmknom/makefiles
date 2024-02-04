@@ -1,5 +1,11 @@
 -include minimum/Makefile
 
+# Variables: fundamentals
+RELEASE_WORKFLOW ?= _internal-release.yml
+
+# Variables: commands
+GH ?= $(shell \command -v gh 2>/dev/null)
+
 # Targets: Build code
 .PHONY: build
 build: fmt lint ## Run format and lint
