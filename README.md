@@ -1,6 +1,6 @@
 # makefiles
 
-A collection of Makefiles.
+Collection of Makefiles.
 
 ## Description
 
