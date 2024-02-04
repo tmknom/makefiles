@@ -23,6 +23,7 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 # Variables: fundamentals
+SELF_DIR ?= $(subst /Makefile,,$(lastword $(MAKEFILE_LIST)))
 ROOT_DIR ?= $(shell $(GIT) rev-parse --show-toplevel)
 RELEASE_WORKFLOW ?= _internal-release.yml
 
@@ -113,3 +114,8 @@ release/show:
 .PHONY: help
 help: ## Display help for all targets
 	@grep --no-filename -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+# Targets: Internal
+.PHONY: internal/update
+internal/update:
+	cd $(ROOT_DIR)/$(SELF_DIR) && git stash && git switch main && git pull origin main
