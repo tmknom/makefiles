@@ -1,7 +1,7 @@
 -include minimum/Makefile
 
 # Variables: fundamentals
-RELEASE_WORKFLOW ?= _internal-release.yml
+RELEASE_WORKFLOW ?= release.yml
 
 # Variables: commands
 GH ?= $(shell \command -v gh 2>/dev/null)
