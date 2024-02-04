@@ -52,7 +52,7 @@ ACTDOCS ?= $(SECURE_DOCKER_RUN) ghcr.io/tmknom/actdocs:latest
 
 # Targets: Build code
 .PHONY: build
-build: fmt lint ## Run format and lint
+build: fmt lint docs ## Run format, lint and docs
 
 # Targets: Lint code
 .PHONY: lint
