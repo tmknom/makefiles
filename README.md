@@ -11,8 +11,8 @@ This is a collection of Makefiles to facilitate development for GitHub Actions.
 At the beginning of your `Makefile` add, the following:
 
 ```makefile
--include .makefiles/Makefile
-.makefiles/Makefile:
+-include .makefiles/minimum/Makefile
+.makefiles/minimum/Makefile:
 	@git clone https://github.com/tmknom/makefiles.git .makefiles >/dev/null 2>&1
 ```
 
