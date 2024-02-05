@@ -126,6 +126,10 @@ help: ## Display help for all targets
 internal/update:
 	cd $(ROOT_DIR)/$(SELF_DIR) && git stash && git switch main && git pull origin main
 
+.PHONY: internal/update/self
+internal/update/self:
+	cd $(__MAKEFILES_FULL_ROOT_DIR) && git stash && git switch main && git pull origin main
+
 # Variables: internal
 __MAKEFILES_SELF ?= $(lastword $(MAKEFILE_LIST))
 __MAKEFILES_SELF_DIR ?= $(subst /Makefile,,$(__MAKEFILES_SELF))
