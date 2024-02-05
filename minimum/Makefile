@@ -68,8 +68,11 @@ help: ## Display help for all targets
 
 # Targets: Internal
 .PHONY: internal/update
-internal/update:
-	cd $(ROOT_DIR)/$(SELF_DIR) && git stash && git switch main && git pull origin main
+internal/update: internal/update/self internal/update/config ### Update makefiles in itself
+
+.PHONY: internal/update/self
+internal/update/self:
+	cd $(__MAKEFILES_FULL_ROOT_DIR) && git stash && git switch main && git pull origin main
 
 # Variables: internal
 __MAKEFILES_SELF ?= $(lastword $(MAKEFILE_LIST))
@@ -91,3 +94,7 @@ __MAKEFILES_CONFIG_REPO ?= https://github.com/tmknom/configurations.git
 internal/init/config: $(__MAKEFILES_CONFIG_DIR)/README.md
 $(__MAKEFILES_CONFIG_DIR)/README.md:
 	@git clone $(__MAKEFILES_CONFIG_REPO) $(__MAKEFILES_FULL_CONFIG_DIR) >/dev/null 2>&1
+
+.PHONY: internal/update/config
+internal/update/config: internal/init/config
+	cd $(__MAKEFILES_FULL_CONFIG_DIR) && git stash && git switch main && git pull origin main
