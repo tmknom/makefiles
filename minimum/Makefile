@@ -85,3 +85,9 @@ __MAKEFILES_CONFIG ?= configurations
 __MAKEFILES_CONFIG_DIR ?= $(__MAKEFILES_IGNORE_DIR)/$(__MAKEFILES_CONFIG)
 __MAKEFILES_FULL_CONFIG_DIR ?= $(ROOT_DIR)/$(__MAKEFILES_CONFIG_DIR)
 __MAKEFILES_CONFIG_REPO ?= https://github.com/tmknom/configurations.git
+
+# Targets: Internal config
+.PHONY: internal/init/config
+internal/init/config: $(__MAKEFILES_CONFIG_DIR)/README.md
+$(__MAKEFILES_CONFIG_DIR)/README.md:
+	@git clone $(__MAKEFILES_CONFIG_REPO) $(__MAKEFILES_FULL_CONFIG_DIR) >/dev/null 2>&1
