@@ -62,8 +62,8 @@ lint/workflow:
 	$(ACTIONLINT) -color || true
 
 .PHONY: lint/yaml
-lint/yaml:
-	$(YAMLLINT) --strict . || true
+lint/yaml: internal/init/config
+	$(YAMLLINT) --strict --config-file $(__MAKEFILES_CONFIG_DIR)/yamllint/reusable-workflows.yml . || true
 
 # Targets: Format code
 .PHONY: fmt
