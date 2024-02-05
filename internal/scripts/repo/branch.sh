@@ -36,18 +36,18 @@ default_branch="$(gh repo view "${repository}" --json=defaultBranchRef --jq=.def
 #
 # - required_pull_request_reviews: Require at least one approving review on a pull request, before merging. Set to null to disable.
 #     - required_approving_review_count: Specify the number of reviewers required to approve pull requests.
-# - required_status_checks: Require status checks to pass before merging. 
+# - required_status_checks: Require status checks to pass before merging.
 #     - strict: Require branches to be up to date before merging.
 #
 # API Document:
 # https://docs.github.com/en/rest/branches/branch-protection?apiVersion=2022-11-28#update-branch-protection
-echo '{"required_pull_request_reviews":{"required_approving_review_count":0},"required_status_checks":{"strict":false,"contexts":[]},"enforce_admins":null,"restrictions":null}' | \
-gh api \
-  --method PUT \
-  -H "Accept: application/vnd.github+json" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  "/repos/${repository}/branches/${default_branch}/protection" \
-  --input - > /dev/null
+echo '{"required_pull_request_reviews":{"required_approving_review_count":0},"required_status_checks":{"strict":false,"contexts":[]},"enforce_admins":null,"restrictions":null}' \
+  | gh api \
+    --method PUT \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    "/repos/${repository}/branches/${default_branch}/protection" \
+    --input - >/dev/null
 
 gh api \
   --method GET \
