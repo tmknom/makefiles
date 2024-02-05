@@ -40,6 +40,13 @@ Run `make help` to view a list of available targets.
 	@git clone https://github.com/tmknom/makefiles.git .makefiles >/dev/null 2>&1
 ```
 
+## Related projects
+
+- [configurations](https://github.com/tmknom/configurations): Collection of configurations.
+- [template](https://github.com/tmknom/template): The template repository.
+- [template-composite-action](https://github.com/tmknom/template-composite-action): Template repository for Composite Action.
+- [template-reusable-workflows](https://github.com/tmknom/template-reusable-workflows): Template repository for Reusable Workflows.
+
 ## Release notes
 
 See [GitHub Releases][releases].
