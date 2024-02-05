@@ -2,9 +2,14 @@
 
 # Variables: fundamentals
 RELEASE_WORKFLOW ?= release.yml
+SHELL_FILES ?= $(shell find . -name '*.sh' | grep -v -e .git/ -e .makefiles/ -e tmp/)
 
 # Variables: commands
 GH ?= $(shell \command -v gh 2>/dev/null)
+
+# Variables: container images
+SHELLCHECK ?= $(SECURE_DOCKER_RUN) koalaman/shellcheck:stable
+SHFMT ?= $(SECURE_DOCKER_RUN) mvdan/shfmt
 
 # Targets: Build code
 .PHONY: build
@@ -12,11 +17,19 @@ build: fmt lint ## Run format and lint
 
 # Targets: Lint code
 .PHONY: lint
-lint: lint/workflow lint/yaml ## Lint workflow files and YAML files
+lint: lint/workflow lint/yaml lint/shell ## Lint workflow files and YAML files
+
+.PHONY: lint/shell
+lint/shell:
+	$(SHELLCHECK) $(SHELL_FILES) || true
 
 # Targets: Format code
 .PHONY: fmt
-fmt: fmt/yaml ## Format YAML files
+fmt: fmt/yaml fmt/shell ## Format YAML files
+
+.PHONY: fmt/shell
+fmt/shell:
+	$(SHFMT) -i 2 -ci -bn -w $(SHELL_FILES)
 
 # Targets: Release
 .PHONY: release
