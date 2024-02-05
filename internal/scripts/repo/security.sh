@@ -37,21 +37,21 @@ set -x
 #
 # API Document:
 # https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#update-a-repository
-echo '{"security_and_analysis":{"secret_scanning":{"status":"enabled"}}}' | \
-gh api \
-  --method PATCH \
-  -H "Accept: application/vnd.github+json" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  "/repos/${repository}" \
-  --input - > /dev/null
+echo '{"security_and_analysis":{"secret_scanning":{"status":"enabled"}}}' \
+  | gh api \
+    --method PATCH \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    "/repos/${repository}" \
+    --input - >/dev/null
 
-echo '{"security_and_analysis":{"secret_scanning_push_protection":{"status":"enabled"}}}' | \
-gh api \
-  --method PATCH \
-  -H "Accept: application/vnd.github+json" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  "/repos/${repository}" \
-  --input - > /dev/null
+echo '{"security_and_analysis":{"secret_scanning_push_protection":{"status":"enabled"}}}' \
+  | gh api \
+    --method PATCH \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    "/repos/${repository}" \
+    --input - >/dev/null
 
 gh api \
   --method GET \
