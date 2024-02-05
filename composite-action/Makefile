@@ -123,8 +123,7 @@ help: ## Display help for all targets
 
 # Targets: Internal
 .PHONY: internal/update
-internal/update:
-	cd $(ROOT_DIR)/$(SELF_DIR) && git stash && git switch main && git pull origin main
+internal/update: internal/update/self internal/update/config ### Update makefiles in itself
 
 .PHONY: internal/update/self
 internal/update/self:
