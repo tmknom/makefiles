@@ -125,3 +125,18 @@ help: ## Display help for all targets
 .PHONY: internal/update
 internal/update:
 	cd $(ROOT_DIR)/$(SELF_DIR) && git stash && git switch main && git pull origin main
+
+# Variables: internal
+__MAKEFILES_SELF ?= $(lastword $(MAKEFILE_LIST))
+__MAKEFILES_SELF_DIR ?= $(subst /Makefile,,$(__MAKEFILES_SELF))
+__MAKEFILES_ROOT_DIR ?= $(shell cut -d/ -f1 <<<$(__MAKEFILES_SELF))
+__MAKEFILES_FULL_ROOT_DIR ?= $(ROOT_DIR)/$(__MAKEFILES_ROOT_DIR)
+
+__MAKEFILES_IGNORE ?= .ignore
+__MAKEFILES_IGNORE_DIR ?= $(__MAKEFILES_ROOT_DIR)/$(__MAKEFILES_IGNORE)
+__MAKEFILES_FULL_IGNORE_DIR ?= $(ROOT_DIR)/$(__MAKEFILES_IGNORE_DIR)
+
+__MAKEFILES_CONFIG ?= configurations
+__MAKEFILES_CONFIG_DIR ?= $(__MAKEFILES_IGNORE_DIR)/$(__MAKEFILES_CONFIG)
+__MAKEFILES_FULL_CONFIG_DIR ?= $(ROOT_DIR)/$(__MAKEFILES_CONFIG_DIR)
+__MAKEFILES_CONFIG_REPO ?= https://github.com/tmknom/configurations.git
