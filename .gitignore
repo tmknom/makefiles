@@ -1,3 +1,6 @@
+# This directory is used by makefiles at runtime
+.ignore/
+
 # https://github.com/tmknom/makefiles
 .makefiles/
 
