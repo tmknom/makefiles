@@ -140,3 +140,7 @@ __MAKEFILES_CONFIG_REPO ?= https://github.com/tmknom/configurations.git
 internal/init/config: $(__MAKEFILES_CONFIG_DIR)/README.md
 $(__MAKEFILES_CONFIG_DIR)/README.md:
 	@git clone $(__MAKEFILES_CONFIG_REPO) $(__MAKEFILES_FULL_CONFIG_DIR) >/dev/null 2>&1
+
+.PHONY: internal/update/config
+internal/update/config: internal/init/config
+	cd $(__MAKEFILES_FULL_CONFIG_DIR) && git stash && git switch main && git pull origin main
