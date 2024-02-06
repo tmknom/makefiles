@@ -22,9 +22,9 @@ SHELL_FILES ?= $(shell find . -name '*.sh' | grep -v -e '.makefiles/' -e 'tmp/' 
 
 # Targets
 .PHONY: lint/shell
-lint/shell:
+lint/shell: ### Lint shell files
 	$(SECURE_DOCKER_RUN) $(SHELLCHECK) $(SHELL_FILES) || true
 
 .PHONY: fmt/shell
-fmt/shell:
+fmt/shell: ### Format shell files
 	$(SECURE_DOCKER_RUN) $(SHFMT) -i 2 -ci -bn -w $(SHELL_FILES)

@@ -20,7 +20,7 @@ GH ?= $(shell \command -v gh 2>/dev/null)
 
 # Targets
 .PHONY: release/start
-release/start:
+release/start: ### Start release process
 	@read -p "Bump up to (patch / minor / major): " answer && \
 	case "$${answer}" in \
 		'patch') make release/patch ;; \
@@ -31,15 +31,15 @@ release/start:
 	make release/show
 
 .PHONY: release/patch
-release/patch:
+release/patch: ### Release patch version
 	$(GH) workflow run $(RELEASE_WORKFLOW) -f level=patch
 
 .PHONY: release/minor
-release/minor:
+release/minor: ### Release minor version
 	$(GH) workflow run $(RELEASE_WORKFLOW) -f level=minor
 
 .PHONY: release/major
-release/major:
+release/major: ### Release major version
 	@read -p "Confirm major version upgrade? (y/N):" answer && \
 	case "$${answer}" in \
 	  [yY]*) $(GH) workflow run $(RELEASE_WORKFLOW) -f level=major ;; \
