@@ -21,6 +21,7 @@ help: help/primary ## Display help for primary targets
 # Targets: Build
 -include $(COMPONENTS_DIR)/workflow.mk
 -include $(COMPONENTS_DIR)/yaml.mk
+-include $(COMPONENTS_DIR)/shell.mk
 
 .PHONY: build
 build: fmt lint docs ## Run format, lint and docs
