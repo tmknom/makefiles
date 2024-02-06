@@ -18,5 +18,8 @@ help: help/primary ## Display help for primary targets
 -include $(COMPONENTS_DIR)/workflow.mk
 -include $(COMPONENTS_DIR)/yaml.mk
 
+# Targets: Release
+-include $(COMPONENTS_DIR)/release.mk
+
 # Targets: Internal
 -include $(COMPONENTS_DIR)/internal.mk
