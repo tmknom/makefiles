@@ -25,3 +25,7 @@ release: release/start ## Start release process
 .PHONY: update
 update: ## Update makefiles for all repositories
 	$(ROOT_DIR)/internal/scripts/admin/update.sh
+
+.PHONY: dev/push
+dev/push: ### Push to specify branch for multiple repositories
+	$(ROOT_DIR)/internal/scripts/admin/push.sh
