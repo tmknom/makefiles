@@ -29,3 +29,7 @@ update: ## Update makefiles for all repositories
 .PHONY: dev/push
 dev/push: ### Push to specify branch for multiple repositories
 	$(ROOT_DIR)/internal/scripts/admin/push.sh
+
+.PHONY: dev/pull
+dev/pull: ### Pull for all repositories
+	$(ROOT_DIR)/internal/scripts/admin/pull.sh
