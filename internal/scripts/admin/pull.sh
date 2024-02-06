@@ -17,7 +17,7 @@ fi
 printf "Based on: \033[35m%s\033[0m\n\n" "${base_dir}"
 
 # Describe target directories
-exclude_options=(-e 'makefiles' -e 'tmp' -e '.git')
+exclude_options=(-e 'makefiles/' -e 'tmp/' -e '\.git/')
 dirs+=("$(find "${base_dir}" -type d -maxdepth 2 -name '*-action' | grep -v "${exclude_options[@]}" | sort -u)")
 dirs+=("$(find "${base_dir}" -type d -maxdepth 2 -name '*-workflows' | grep -v "${exclude_options[@]}" | sort -u)")
 dirs+=("$(find "${base_dir}" -type d -maxdepth 2 -name 'template*' | grep -v "${exclude_options[@]}" | sort -u)")
