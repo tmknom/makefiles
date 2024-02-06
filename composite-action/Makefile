@@ -26,10 +26,10 @@ help: help/primary ## Display help for primary targets
 build: fmt lint docs ## Run format, lint and docs
 
 .PHONY: lint
-lint: lint/workflow lint/yaml ## Lint workflow files and YAML files
+lint: lint/workflow lint/yaml lint/shell ## Lint workflow files, YAML files and shell files
 
 .PHONY: fmt
-fmt: fmt/yaml ## Format YAML files
+fmt: fmt/yaml fmt/shell ## Format YAML files and shell files
 
 # Targets: Generate document
 ACTDOCS ?= ghcr.io/tmknom/actdocs:latest
