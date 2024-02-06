@@ -27,22 +27,23 @@ release/start: ### Start release process
 		'minor') make release/minor ;; \
 		'major') make release/major ;; \
 		*) echo "Error: invalid parameter: $${answer}"; exit 1 ;; \
-	esac && \
-	make release/show
+	esac
 
 .PHONY: release/patch
 release/patch: ### Release patch version
 	$(GH) workflow run $(RELEASE_WORKFLOW) -f level=patch
+	make release/show
 
 .PHONY: release/minor
 release/minor: ### Release minor version
 	$(GH) workflow run $(RELEASE_WORKFLOW) -f level=minor
+	make release/show
 
 .PHONY: release/major
 release/major: ### Release major version
 	@read -p "Confirm major version upgrade? (y/N):" answer && \
 	case "$${answer}" in \
-	  [yY]*) $(GH) workflow run $(RELEASE_WORKFLOW) -f level=major ;; \
+	  [yY]*) $(GH) workflow run $(RELEASE_WORKFLOW) -f level=major; make release/show ;; \
 	  *) echo "Cancel major version upgrade." ;; \
 	esac
 
