@@ -5,7 +5,7 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 # Include initial components
-COMPONENTS_DIR := $(shell cut -d/ -f1 <<<$(lastword $(MAKEFILE_LIST)))/internal/components
+COMPONENTS_DIR ?= $(shell cut -d/ -f1 <<<$(lastword $(MAKEFILE_LIST)))/internal/components
 include $(COMPONENTS_DIR)/flags.mk
 include $(COMPONENTS_DIR)/variables.mk
 
