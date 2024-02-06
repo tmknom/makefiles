@@ -26,9 +26,9 @@ YAML_FILES ?= $(shell find . -name '*.y*ml' | grep -v -e '.makefiles/' -e 'tmp/'
 
 # Targets
 .PHONY: lint/yaml
-lint/yaml:
+lint/yaml: ### Lint YAML files
 	$(SECURE_DOCKER_RUN) $(YAMLLINT) --strict --config-file $(YAMLLINT_CONFIG) . || true
 
 .PHONY: fmt/yaml
-fmt/yaml:
+fmt/yaml: ### Format YAML files
 	$(SECURE_DOCKER_RUN) $(PRETTIER) --write --parser=yaml $(YAML_FILES)
