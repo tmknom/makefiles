@@ -20,3 +20,8 @@ fmt: fmt/yaml fmt/shell ## Format YAML files
 # Targets: Release
 .PHONY: release
 release: release/start ## Start release process
+
+# Targets: Admin
+.PHONY: update
+update: ## Update makefiles for all repositories
+	$(ROOT_DIR)/internal/scripts/admin/update.sh
