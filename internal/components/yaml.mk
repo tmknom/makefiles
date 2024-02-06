@@ -27,8 +27,12 @@ YAML_FILES ?= $(shell find . -name '*.y*ml' | grep -v -e '.makefiles/' -e 'tmp/'
 # Targets
 .PHONY: lint/yaml
 lint/yaml: ### Lint YAML files
+	@if [[ ! "$(YAML_FILES)" ]]; then printf "Skip: $@\n"; exit 0; fi; \
+	printf "Run: \033[33m%-30s\033[0m %s\n" "$@"; \
 	$(SECURE_DOCKER_RUN) $(YAMLLINT) --strict --config-file $(YAMLLINT_CONFIG) . || true
 
 .PHONY: fmt/yaml
 fmt/yaml: ### Format YAML files
+	@if [[ ! "$(YAML_FILES)" ]]; then printf "Skip: $@\n"; exit 0; fi; \
+	printf "Run: \033[33m%-30s\033[0m %s\n" "$@"; \
 	$(SECURE_DOCKER_RUN) $(PRETTIER) --write --parser=yaml $(YAML_FILES)
