@@ -33,6 +33,15 @@ internal/config/init: $(CONFIG_DIR)/README.md
 $(CONFIG_DIR)/README.md:
 	@$(GIT) clone $(CONFIG_REPO) $(FULL_CONFIG_DIR) >/dev/null 2>&1
 
+# Targets: Internal/Repo
+__REPO_ORIGIN ?= $(shell git config --get remote.origin.url)
+__REPO_OWNER ?= $(shell gh config get -h github.com user)
+__REPO_NAME ?= $(shell basename -s .git $(__REPO_ORIGIN))
+
+.PHONY: internal/repo/init
+internal/repo/init:
+	$(SCRIPTS_DIR)/repo/main.sh "$(__REPO_OWNER)/$(__REPO_NAME)"
+
 # Targets: Internal/Debug
 .PHONY: internal/debug/test
 internal/debug/test:
