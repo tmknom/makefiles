@@ -17,7 +17,7 @@
 # ```
 
 # Override variables
-YAMLLINT_CONFIG ?=
+YAMLLINT_CONFIG ?= $(CONFIG_DIR)/yamllint/github-actions.yml
 
 # Variables
 YAMLLINT ?= ghcr.io/tmknom/dockerfiles/yamllint:latest
