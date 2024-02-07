@@ -7,8 +7,6 @@
 #
 # ```makefile
 # -include $(COMPONENTS_DIR)/internal.mk
-# .PHONY: internal/update
-# internal/update: internal/self/update internal/config/update
 # ```
 
 # Variables
@@ -20,10 +18,12 @@ FULL_CONFIG_DIR ?= $(ROOT_DIR)/$(CONFIG_DIR)
 .PHONY: internal/update
 internal/update: internal/self/update internal/config/update ### Update makefiles in itself
 
+# Targets: Internal/Self
 .PHONY: internal/self/update
 internal/self/update:
 	cd $(FULL_MAKEFILES_DIR) && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
 
+# Targets: Internal/Config
 .PHONY: internal/config/update
 internal/config/update: internal/config/init
 	cd $(FULL_CONFIG_DIR) && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
@@ -33,6 +33,7 @@ internal/config/init: $(CONFIG_DIR)/README.md
 $(CONFIG_DIR)/README.md:
 	@$(GIT) clone $(CONFIG_REPO) $(FULL_CONFIG_DIR) >/dev/null 2>&1
 
+# Targets: Internal/Debug
 .PHONY: internal/debug/test
 internal/debug/test:
 	grep --no-filename -E '^.PHONY' $(MAKEFILE_LIST) | cut -d: -f2 | sort -u | \
