@@ -25,11 +25,11 @@ internal/update/self:
 	cd $(FULL_MAKEFILES_DIR) && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
 
 .PHONY: internal/update/config
-internal/update/config: internal/init/config
+internal/update/config: internal/config/init
 	cd $(FULL_CONFIG_DIR) && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
 
-.PHONY: internal/init/config
-internal/init/config: $(CONFIG_DIR)/README.md
+.PHONY: internal/config/init
+internal/config/init: $(CONFIG_DIR)/README.md
 $(CONFIG_DIR)/README.md:
 	@$(GIT) clone $(CONFIG_REPO) $(FULL_CONFIG_DIR) >/dev/null 2>&1
 
