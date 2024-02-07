@@ -8,7 +8,7 @@
 # ```makefile
 # -include $(COMPONENTS_DIR)/internal.mk
 # .PHONY: internal/update
-# internal/update: internal/update/self internal/update/config
+# internal/update: internal/update/self internal/config/update
 # ```
 
 # Variables
@@ -18,14 +18,14 @@ FULL_CONFIG_DIR ?= $(ROOT_DIR)/$(CONFIG_DIR)
 
 # Targets
 .PHONY: internal/update
-internal/update: internal/update/self internal/update/config ### Update makefiles in itself
+internal/update: internal/update/self internal/config/update ### Update makefiles in itself
 
 .PHONY: internal/update/self
 internal/update/self:
 	cd $(FULL_MAKEFILES_DIR) && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
 
-.PHONY: internal/update/config
-internal/update/config: internal/config/init
+.PHONY: internal/config/update
+internal/config/update: internal/config/init
 	cd $(FULL_CONFIG_DIR) && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
 
 .PHONY: internal/config/init
