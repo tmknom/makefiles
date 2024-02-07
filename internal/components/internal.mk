@@ -32,3 +32,8 @@ internal/update/config: internal/init/config
 internal/init/config: $(CONFIG_DIR)/README.md
 $(CONFIG_DIR)/README.md:
 	@$(GIT) clone $(CONFIG_REPO) $(FULL_CONFIG_DIR) >/dev/null 2>&1
+
+.PHONY: internal/debug/test
+internal/debug/test:
+	grep --no-filename -E '^.PHONY' $(MAKEFILE_LIST) | cut -d: -f2 | sort -u | \
+	xargs -I {} /bin/bash -c "printf '\033[32mmake %-30s\033[0m %s\n' {} && make {} -n"
