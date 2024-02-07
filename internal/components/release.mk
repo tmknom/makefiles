@@ -15,9 +15,6 @@
 # Override variables
 RELEASE_WORKFLOW ?= release.yml
 
-# Variables
-GH ?= $(shell \command -v gh 2>/dev/null)
-
 # Targets
 .PHONY: release/start
 release/start: ### Start release process

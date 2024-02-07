@@ -6,8 +6,11 @@
 # -include $(COMPONENTS_DIR)/variables.mk
 # ```
 
-# Fundamentals
+# Commands
 GIT := $(shell \command -v git 2>/dev/null)
+GH ?= $(shell \command -v gh 2>/dev/null)
+
+# Fundamentals
 ROOT_DIR := $(shell $(GIT) rev-parse --show-toplevel)
 MAKEFILES_SELF ?= $(shell cut -d/ -f1 <<<$(lastword $(MAKEFILE_LIST)))
 CONFIG_DIR ?= $(__MAKEFILES_CONFIG_DIR)
