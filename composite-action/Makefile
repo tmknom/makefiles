@@ -37,13 +37,13 @@ TEST_WORKFLOW ?= test.yml
 CURRENT_BRANCH ?= $(shell $(GIT) rev-parse --abbrev-ref HEAD)
 .PHONY: test
 test: ## Run test workflow
-	if [[ "$(CURRENT_BRANCH)" != "main" ]]; then \
+	@if [[ "$(CURRENT_BRANCH)" != "main" ]]; then \
 		echo "Push: $(CURRENT_BRANCH)"; \
 		$(GIT) push origin $(CURRENT_BRANCH) --force 2>/dev/null; \
 	fi
 	$(GH) workflow run $(TEST_WORKFLOW) --ref $(CURRENT_BRANCH)
-	sleep 2
-	id=$$($(GH) run list --limit 1 --json databaseId --jq '.[0].databaseId' --workflow $(TEST_WORKFLOW)) && \
+	@sleep 2
+	@id=$$($(GH) run list --limit 1 --json databaseId --jq '.[0].databaseId' --workflow $(TEST_WORKFLOW)) && \
 	$(GH) run watch $${id} && \
 	$(GH) run view --log-failed $${id}
 
