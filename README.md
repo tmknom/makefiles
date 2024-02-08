@@ -49,6 +49,7 @@ Run `make help` to view a list of available targets.
 
 ## Related projects
 
+- [dockerfiles](https://github.com/tmknom/dockerfiles): Collection of Dockerfiles.
 - [configurations](https://github.com/tmknom/configurations): Collection of configurations.
 - [template](https://github.com/tmknom/template): The template repository.
 - [template-composite-action](https://github.com/tmknom/template-composite-action): Template repository for Composite Action.
