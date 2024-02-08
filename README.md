@@ -55,6 +55,11 @@ Run `make help` to view a list of available targets.
 - [template-composite-action](https://github.com/tmknom/template-composite-action): Template repository for Composite Action.
 - [template-reusable-workflows](https://github.com/tmknom/template-reusable-workflows): Template repository for Reusable Workflows.
 
+## References
+
+- [Command Line Interface Guidelines](https://clig.dev/)
+- [Makefile Best Practices](https://docs.cloudposse.com/reference/best-practices/make-best-practices/)
+
 ## Release notes
 
 See [GitHub Releases][releases].
