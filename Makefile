@@ -3,8 +3,6 @@ MAKEFILES_SELF ?= .
 COMPONENTS_DIR ?= internal/components
 
 # Include: minimum
-YAMLLINT_CONFIG ?= $(CONFIG_DIR)/yamllint/github-actions.yml
-RELEASE_WORKFLOW ?= release.yml
 -include minimum/Makefile
 
 # Targets: Build
