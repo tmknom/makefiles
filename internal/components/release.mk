@@ -13,7 +13,7 @@
 # ```
 
 # Override variables
-RELEASE_WORKFLOW ?=
+RELEASE_WORKFLOW ?= release.yml
 
 # Variables
 GH ?= $(shell \command -v gh 2>/dev/null)
