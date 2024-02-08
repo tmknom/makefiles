@@ -13,8 +13,9 @@ GH ?= $(shell \command -v gh 2>/dev/null)
 # Fundamentals
 ROOT_DIR := $(shell $(GIT) rev-parse --show-toplevel)
 MAKEFILES_SELF ?= $(shell cut -d/ -f1 <<<$(lastword $(MAKEFILE_LIST)))
-CONFIG_DIR ?= $(__MAKEFILES_CONFIG_DIR)
 SCRIPTS_DIR ?= $(__MAKEFILES_SCRIPTS_DIR)
+CONFIG_DIR ?= $(__MAKEFILES_CONFIG_DIR)
+STATE_DIR ?= $(__MAKEFILES_STATE_DIR)
 
 # Docker commands
 DOCKER := $(shell \command -v docker 2>/dev/null)
@@ -45,3 +46,6 @@ __MAKEFILES_DOT_LOCAL_DIR ?= $(__MAKEFILES_INTERNAL_DIR)/$(__MAKEFILES_DOT_LOCAL
 
 __MAKEFILES_CONFIG ?= configurations
 __MAKEFILES_CONFIG_DIR ?= $(__MAKEFILES_DOT_LOCAL_DIR)/$(__MAKEFILES_CONFIG)
+
+__MAKEFILES_STATE ?= state
+__MAKEFILES_STATE_DIR ?= $(__MAKEFILES_DOT_LOCAL_DIR)/$(__MAKEFILES_STATE)
