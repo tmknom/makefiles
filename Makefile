@@ -32,3 +32,8 @@ dev/push: ### Push to specify branch for multiple repositories
 .PHONY: dev/pull
 dev/pull: ### Pull for all repositories
 	$(ROOT_DIR)/internal/scripts/admin/pull.sh
+
+.PHONY: dev/exec
+dev/exec: ### Execute for all repositories
+	@read -p "What command do you want to run? (ex: ls -a): " commands && \
+	$(ROOT_DIR)/internal/scripts/admin/exec.sh "$${commands}"
