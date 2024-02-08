@@ -22,9 +22,7 @@ if [[ "${repository}" == "" ]]; then
   exit 2
 fi
 
-root_dir="$(git rev-parse --show-toplevel)"
-self_dir="${root_dir}/internal/scripts/repo"
-
+self_dir="$(realpath "$(dirname "$0")")"
 "${self_dir}/general.sh" "${repository}"
 "${self_dir}/actions.sh" "${repository}"
 "${self_dir}/security.sh" "${repository}"
