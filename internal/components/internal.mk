@@ -18,6 +18,9 @@ FULL_CONFIG_DIR ?= $(ROOT_DIR)/$(CONFIG_DIR)
 .PHONY: internal/update
 internal/update: internal/self/update internal/config/update ### Update makefiles in itself
 
+.PHONY: internal/init
+internal/init: internal/config/init internal/repo/init ### Init makefiles and repository settings
+
 # Targets: Internal/Self
 .PHONY: internal/self/update
 internal/self/update:
