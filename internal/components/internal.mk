@@ -13,28 +13,46 @@
 CONFIG_REPO ?= https://github.com/tmknom/configurations.git
 FULL_MAKEFILES_DIR ?= $(ROOT_DIR)/$(MAKEFILES_SELF)
 FULL_CONFIG_DIR ?= $(ROOT_DIR)/$(CONFIG_DIR)
+FULL_STATE_DIR ?= $(ROOT_DIR)/$(STATE_DIR)
 
 # Targets
 .PHONY: internal/update
 internal/update: internal/self/update internal/config/update ### Update makefiles in itself
 
 .PHONY: internal/init
-internal/init: internal/config/init internal/repo/init ### Init makefiles and repository settings
+internal/init: internal/self/init internal/config/init internal/repo/init ### Init makefiles and repository settings
 
 # Targets: Internal/Self
 .PHONY: internal/self/update
 internal/self/update:
 	cd $(FULL_MAKEFILES_DIR) && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
+	make internal/self/state
+
+.PHONY: internal/self/init
+internal/self/init: $(STATE_DIR)/initialized
+$(STATE_DIR)/initialized:
+	mkdir -p $(STATE_DIR)
+	echo "Initialized at $(shell date -Iseconds)" > $(STATE_DIR)/initialized
+	make internal/self/state
+
+.PHONY: internal/self/state
+internal/self/state: $(STATE_DIR)/initialized
+	cd $(FULL_MAKEFILES_DIR) && $(GIT) log -1 --format=%H >$(FULL_STATE_DIR)/makefiles
 
 # Targets: Internal/Config
 .PHONY: internal/config/update
-internal/config/update: internal/config/init
+internal/config/update:
 	cd $(FULL_CONFIG_DIR) && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
+	make internal/config/state
 
 .PHONY: internal/config/init
-internal/config/init: $(CONFIG_DIR)/README.md
-$(CONFIG_DIR)/README.md:
+internal/config/init:
 	@$(GIT) clone $(CONFIG_REPO) $(FULL_CONFIG_DIR) >/dev/null 2>&1
+	make internal/config/state
+
+.PHONY: internal/config/state
+internal/config/state: $(STATE_DIR)/initialized
+	cd $(FULL_CONFIG_DIR) && $(GIT) log -1 --format=%H >$(FULL_STATE_DIR)/configurations
 
 # Targets: Internal/Repo
 __REPO_ORIGIN ?= $(shell git config --get remote.origin.url)
