@@ -26,7 +26,8 @@ update: ## Update makefiles for all repositories
 
 .PHONY: dev/push
 dev/push: ### Push to specify branch for multiple repositories
-	$(ROOT_DIR)/internal/scripts/admin/push.sh
+	@read -p "Which branch to push changes? (ex: feat/foo-bar): " branch && \
+	$(ROOT_DIR)/internal/scripts/admin/push.sh "$${branch}"
 
 .PHONY: dev/pull
 dev/pull: ### Pull for all repositories
