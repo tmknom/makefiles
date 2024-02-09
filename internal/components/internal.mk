@@ -61,7 +61,11 @@ __REPO_NAME ?= $(shell basename -s .git $(__REPO_ORIGIN))
 
 .PHONY: internal/repo/init
 internal/repo/init:
-	$(SCRIPTS_DIR)/repo/main.sh "$(__REPO_OWNER)/$(__REPO_NAME)"
+	@read -p "Confirm repository init? (y/N): " answer && \
+	case "$${answer}" in \
+	  [yY]*) $(SCRIPTS_DIR)/repo/main.sh "$(__REPO_OWNER)/$(__REPO_NAME)" ;; \
+	  *) echo "Cancel repository init." ;; \
+	esac
 
 # Targets: Internal/Debug
 .PHONY: internal/debug/test
