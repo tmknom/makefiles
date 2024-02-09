@@ -1,3 +1,15 @@
 # The `.local` directory is used by Makefile at runtime, and not managed with Git. 
+# This directory has the following structure:
+#
+# .local                 # This directory
+# ├── config             # Clone the configurations repository
+# └── state              # State files directory
+#     ├── configurations # Commit hash of the configurations repository
+#     ├── initialized    # Date of .makefiles directory initialized
+#     ├── makefiles      # Commit hash of the makefiles repository
+#     └── repository     # Date of repository configured
+#
+# The `.local` directory is designed, taking inspiration from the XDG Base Directory Specification.
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 *
 !.gitignore
