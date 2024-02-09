@@ -36,5 +36,6 @@ for dir in ${dirs[@]}; do
   printf "Update: \033[32m%s\033[0m\n" "${dir}"
   pushd "${dir}" >/dev/null
   /usr/bin/env bash -c "${commands}" || true
+  sleep 1
   popd >/dev/null
 done
