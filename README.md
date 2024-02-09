@@ -6,6 +6,13 @@ Collection of Makefiles.
 
 This is a collection of Makefiles to facilitate development for GitHub Actions.
 
+## Requirements
+
+- [GNU Make](https://www.gnu.org/software/make/)
+- [Git](https://git-scm.com/)
+- [Docker](https://www.docker.com/)
+- [GitHub CLI](https://cli.github.com/)
+
 ## Usage
 
 At the beginning of your `Makefile` add, the following:
