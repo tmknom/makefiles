@@ -60,12 +60,14 @@ __REPO_OWNER ?= $(shell gh config get -h github.com user)
 __REPO_NAME ?= $(shell basename -s .git $(__REPO_ORIGIN))
 
 .PHONY: internal/repo/init
-internal/repo/init:
+internal/repo/init: $(STATE_DIR)/repository
+$(STATE_DIR)/repository:
 	@read -p "Confirm repository init? (y/N): " answer && \
 	case "$${answer}" in \
 	  [yY]*) $(SCRIPTS_DIR)/repo/main.sh "$(__REPO_OWNER)/$(__REPO_NAME)" ;; \
 	  *) echo "Cancel repository init." ;; \
 	esac
+	echo "Configured at $(shell date -Iseconds)" > $(STATE_DIR)/repository
 
 # Targets: Internal/Debug
 .PHONY: internal/debug/test
