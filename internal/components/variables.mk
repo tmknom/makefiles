@@ -7,18 +7,18 @@
 # ```
 
 # Commands
-GIT := $(shell \command -v git 2>/dev/null)
+GIT ?= $(shell \command -v git 2>/dev/null)
 GH ?= $(shell \command -v gh 2>/dev/null)
 
 # Fundamentals
-ROOT_DIR := $(shell $(GIT) rev-parse --show-toplevel)
+ROOT_DIR ?= $(shell $(GIT) rev-parse --show-toplevel)
 MAKEFILES_SELF ?= $(shell cut -d/ -f1 <<<$(lastword $(MAKEFILE_LIST)))
 SCRIPTS_DIR ?= $(__MAKEFILES_SCRIPTS_DIR)
 CONFIG_DIR ?= $(__MAKEFILES_CONFIG_DIR)
 STATE_DIR ?= $(__MAKEFILES_STATE_DIR)
 
 # Docker commands
-DOCKER := $(shell \command -v docker 2>/dev/null)
+DOCKER ?= $(shell \command -v docker 2>/dev/null)
 DOCKER_RUN ?= $(DOCKER) run $(__DOCKER_OPTIONS)
 SECURE_DOCKER_RUN ?= $(DOCKER_RUN) $(__DOCKER_SECURE_OPTIONS)
 
