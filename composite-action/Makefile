@@ -6,6 +6,7 @@ SHELL := /bin/bash
 
 # Override variables
 YAMLLINT_CONFIG ?= $(CONFIG_DIR)/yamllint/composite-action.yml
+TEST_WORKFLOW ?= test.yml
 RELEASE_WORKFLOW ?= release.yml
 
 # Include initial components
@@ -33,19 +34,9 @@ lint: lint/workflow lint/yaml lint/shell ## Lint workflow files, YAML files and 
 fmt: fmt/yaml fmt/shell ## Format YAML files and shell files
 
 # Targets: Test
-TEST_WORKFLOW ?= test.yml
-CURRENT_BRANCH ?= $(shell $(GIT) rev-parse --abbrev-ref HEAD)
+-include $(COMPONENTS_DIR)/test.mk
 .PHONY: test
-test: ## Run test workflow
-	@if [[ "$(CURRENT_BRANCH)" != "main" ]]; then \
-		echo "Push: $(CURRENT_BRANCH)"; \
-		$(GIT) push origin $(CURRENT_BRANCH) --force 2>/dev/null; \
-	fi
-	$(GH) workflow run $(TEST_WORKFLOW) --ref $(CURRENT_BRANCH)
-	@sleep 2
-	@id=$$($(GH) run list --limit 1 --json databaseId --jq '.[0].databaseId' --workflow $(TEST_WORKFLOW)) && \
-	$(GH) run watch $${id} && \
-	$(GH) run view --log-failed $${id}
+test: test/run ## Test at workflow
 
 # Targets: Generate document
 ACTDOCS ?= ghcr.io/tmknom/actdocs:latest
