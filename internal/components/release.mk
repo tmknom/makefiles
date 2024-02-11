@@ -9,15 +9,15 @@
 # RELEASE_WORKFLOW ?= release.yml
 # -include $(COMPONENTS_DIR)/release.mk
 # .PHONY: release
-# release: release/start
+# release: release/run
 # ```
 
 # Override variables
 RELEASE_WORKFLOW ?= release.yml
 
 # Targets
-.PHONY: release/start
-release/start: ### Start release process
+.PHONY: release/run
+release/run: ### Run release workflow
 	@read -p "Bump up to (patch / minor / major): " answer && \
 	case "$${answer}" in \
 		'patch') make release/patch ;; \

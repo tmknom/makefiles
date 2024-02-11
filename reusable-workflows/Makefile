@@ -35,7 +35,7 @@ fmt: fmt/yaml fmt/shell ## Format YAML files and shell files
 # Targets: Release
 -include $(COMPONENTS_DIR)/release.mk
 .PHONY: release
-release: release/start ## Start release process
+release: release/run ## Start release process
 
 # Targets: Internal
 -include $(COMPONENTS_DIR)/internal.mk
