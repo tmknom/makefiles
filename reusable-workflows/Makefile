@@ -6,6 +6,7 @@ SHELL := /bin/bash
 
 # Override variables
 YAMLLINT_CONFIG ?= $(CONFIG_DIR)/yamllint/reusable-workflows.yml
+TEST_WORKFLOW ?= _internal-test.yml
 RELEASE_WORKFLOW ?= _internal-release.yml
 
 # Include initial components
@@ -31,6 +32,11 @@ lint: lint/workflow lint/yaml lint/shell ## Lint workflow files, YAML files and 
 
 .PHONY: fmt
 fmt: fmt/yaml fmt/shell ## Format YAML files and shell files
+
+# Targets: Test
+-include $(COMPONENTS_DIR)/test.mk
+.PHONY: test
+test: test/run ## Test at workflow
 
 # Targets: Release
 -include $(COMPONENTS_DIR)/release.mk
