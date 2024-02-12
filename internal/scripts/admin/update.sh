@@ -26,8 +26,8 @@ dirs+=("$(find "${base_dir}" -type d -maxdepth 2 -name 'makefiles' -or -name 'co
 # Ignore shellcheck: Double quote array expansions to avoid re-splitting elements
 # shellcheck disable=SC2068
 for dir in ${dirs[@]}; do
-  printf "Update: \033[32m%s\033[0m\n" "${dir}"
   pushd "${dir}" >/dev/null
+  printf "Update: \033[32m%s\033[0m\n" "${dir}"
   make internal/update || true
   popd >/dev/null
 done

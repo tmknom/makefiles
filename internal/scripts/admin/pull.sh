@@ -27,7 +27,7 @@ dirs+=("$(find "${base_dir}" -type d -maxdepth 2 -name 'makefiles' -or -name 'co
 # shellcheck disable=SC2068
 for dir in ${dirs[@]}; do
   pushd "${dir}" >/dev/null
-  printf "Push: \033[32m%s\033[0m\n" "${dir}"
+  printf "Pull: \033[32m%s\033[0m\n" "${dir}"
   git stash
   git switch main
   git pull --rebase origin main
