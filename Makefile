@@ -17,7 +17,7 @@ fmt: fmt/yaml fmt/shell ## Format YAML files
 
 # Targets: Release
 .PHONY: release
-release: release/start ## Start release process
+release: release/run ## Start release process
 
 # Targets: Admin
 .PHONY: update
