@@ -17,11 +17,9 @@ fi
 printf "Based on: \033[35m%s\033[0m\n\n" "${base_dir}"
 
 # Describe target directories
-exclude_options=(-e 'makefiles/' -e 'tmp/' -e '\.git/')
-dirs+=("$(find "${base_dir}" -type d -maxdepth 2 -name '*-action' | grep -v "${exclude_options[@]}" | sort -u)")
-dirs+=("$(find "${base_dir}" -type d -maxdepth 2 -name '*-workflows' | grep -v "${exclude_options[@]}" | sort -u)")
-dirs+=("$(find "${base_dir}" -type d -maxdepth 2 -name 'template*' | grep -v "${exclude_options[@]}" | sort -u)")
-dirs+=("$(find "${base_dir}" -type d -maxdepth 2 -name 'makefiles' -or -name 'configurations' | grep -v -e '/tmp' -e '/.git' | sort -u)")
+source "$(realpath "$(dirname "$0")")/functions/dirs.sh"
+dirs="$(describe_dirs "${base_dir}")"
+printf "Run dirs:\n\033[35m%s\033[0m\n\n" "${dirs}"
 
 # Ignore shellcheck: Double quote array expansions to avoid re-splitting elements
 # shellcheck disable=SC2068
