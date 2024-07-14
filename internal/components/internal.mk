@@ -31,13 +31,13 @@ internal/self/update:
 .PHONY: internal/self/init
 internal/self/init: $(STATE_DIR)/initialized
 $(STATE_DIR)/initialized:
-	mkdir -p $(STATE_DIR)
-	echo "Initialized at $(shell date -Iseconds)" > $(STATE_DIR)/initialized
-	make internal/self/state
+	@mkdir -p $(STATE_DIR)
+	@echo "Initialized at $(shell date -Iseconds)" > $(STATE_DIR)/initialized
+	@make internal/self/state
 
 .PHONY: internal/self/state
 internal/self/state: $(STATE_DIR)/initialized
-	cd $(FULL_MAKEFILES_DIR) && $(GIT) log -1 --format=%H >$(FULL_STATE_DIR)/makefiles
+	@cd $(FULL_MAKEFILES_DIR) && $(GIT) log -1 --format=%H >$(FULL_STATE_DIR)/makefiles
 
 # Targets: Internal/Config
 .PHONY: internal/config/update
@@ -49,11 +49,11 @@ internal/config/update:
 internal/config/init: $(STATE_DIR)/configurations
 $(STATE_DIR)/configurations:
 	@$(GIT) clone $(CONFIG_REPO) $(FULL_CONFIG_DIR) >/dev/null 2>&1
-	make internal/config/state
+	@make internal/config/state
 
 .PHONY: internal/config/state
 internal/config/state: $(STATE_DIR)/initialized
-	cd $(FULL_CONFIG_DIR) && $(GIT) log -1 --format=%H >$(FULL_STATE_DIR)/configurations
+	@cd $(FULL_CONFIG_DIR) && $(GIT) log -1 --format=%H >$(FULL_STATE_DIR)/configurations
 
 # Targets: Internal/Repo
 __REPO_ORIGIN ?= $(shell git config --get remote.origin.url)
