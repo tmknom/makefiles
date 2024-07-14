@@ -46,8 +46,8 @@ internal/config/update:
 	make internal/config/state
 
 .PHONY: internal/config/init
-internal/config/init: $(STATE_DIR)/configurations
-$(STATE_DIR)/configurations:
+internal/config/init: $(CONFIG_DIR)/README.md
+$(CONFIG_DIR)/README.md:
 	@$(GIT) clone $(CONFIG_REPO) $(FULL_CONFIG_DIR) >/dev/null 2>&1
 	make internal/config/state
 
