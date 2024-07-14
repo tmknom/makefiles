@@ -20,7 +20,7 @@ FULL_STATE_DIR ?= $(ROOT_DIR)/$(STATE_DIR)
 internal/update: internal/self/update internal/config/update ### Update makefiles in itself
 
 .PHONY: internal/init
-internal/init: internal/self/init internal/config/init internal/repo/init ### Init makefiles and repository settings
+internal/init: internal/self/init internal/config/init ### Init makefiles and configurations
 
 # Targets: Internal/Self
 .PHONY: internal/self/update
