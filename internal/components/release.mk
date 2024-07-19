@@ -28,12 +28,12 @@ release/run: ### Run release workflow
 
 .PHONY: release/patch
 release/patch: ### Release patch version
-	$(GH) workflow run $(RELEASE_WORKFLOW) -f level=patch
+	$(GH) workflow run $(RELEASE_WORKFLOW) -f level=patch || true
 	make release/show
 
 .PHONY: release/minor
 release/minor: ### Release minor version
-	$(GH) workflow run $(RELEASE_WORKFLOW) -f level=minor
+	$(GH) workflow run $(RELEASE_WORKFLOW) -f level=minor || true
 	make release/show
 
 .PHONY: release/major
