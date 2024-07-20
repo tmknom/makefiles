@@ -24,16 +24,16 @@ release: release/run ## Start release process
 update: ## Update makefiles for all repositories
 	$(ROOT_DIR)/internal/scripts/admin/update.sh
 
-.PHONY: dev/push
-dev/push: ### Push to specify branch for multiple repositories
+.PHONY: multi/push
+multi/push: ### Push to specify branch for multiple repositories
 	@read -p "Which branch to push changes? (ex: feat/foo-bar): " branch && \
 	$(ROOT_DIR)/internal/scripts/admin/push.sh "$${branch}"
 
-.PHONY: dev/pull
-dev/pull: ### Pull for all repositories
+.PHONY: multi/pull
+multi/pull: ### Pull main branch for multiple repositories
 	$(ROOT_DIR)/internal/scripts/admin/pull.sh
 
-.PHONY: dev/exec
-dev/exec: ### Execute for all repositories
+.PHONY: multi/exec
+multi/exec: ### Execute commands for multiple repositories
 	@read -p "What command do you want to run? (ex: ls -a): " commands && \
 	$(ROOT_DIR)/internal/scripts/admin/exec.sh "$${commands}"
