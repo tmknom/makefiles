@@ -24,6 +24,12 @@ release: release/run ## Start release process
 update: ## Update makefiles for all repositories
 	$(ROOT_DIR)/internal/scripts/admin/update.sh
 
+.PHONY: multi/commit
+multi/commit: ### Commit all files for multiple repositories
+	@read -p "Which branch to commit? (ex: feat/foo-bar): " branch && \
+	read -p "What message do you want to commit? (ex: add feature): " message && \
+	$(ROOT_DIR)/internal/scripts/admin/commit.sh "$${branch}" "$${message}"
+
 .PHONY: multi/push
 multi/push: ### Push to specify branch for multiple repositories
 	@read -p "Which branch to push changes? (ex: feat/foo-bar): " branch && \
