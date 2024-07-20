@@ -24,6 +24,10 @@ release: release/run ## Start release process
 update: ## Update makefiles for all repositories
 	$(ROOT_DIR)/internal/scripts/admin/update.sh
 
+.PHONY: multi/stash
+multi/stash: ### Stash to main branch for multiple repositories
+	$(ROOT_DIR)/internal/scripts/admin/stash.sh
+
 .PHONY: multi/copy
 multi/copy: ### Copy file for multiple repositories
 	@read -p "Which source file to copy? (ex: src.md): " src && \
