@@ -38,7 +38,7 @@ printf "Run dirs:\n\033[35m%s\033[0m\n\n" "${dirs}"
 # shellcheck disable=SC2068
 for dir in ${dirs[@]}; do
   pushd "${dir}" >/dev/null
-  printf "Pull: \033[32m%s\033[0m\n" "${dir}"
+  printf "Commit: \033[32m%s\033[0m\n" "${dir}"
   git switch -c "${branch}"
   git add .
   git commit -m "${message}"
