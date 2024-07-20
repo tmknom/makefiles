@@ -39,12 +39,8 @@ printf "Run dirs:\n\033[35m%s\033[0m\n\n" "${dirs}"
 for dir in ${dirs[@]}; do
   pushd "${dir}" >/dev/null
   printf "Pull: \033[32m%s\033[0m\n" "${dir}"
-  git stash
-  git switch main
   git switch -c "${branch}"
   git add .
   git commit -m "${message}"
-  git switch main
-  git stash pop || true
   popd >/dev/null
 done
