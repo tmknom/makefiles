@@ -24,6 +24,12 @@ release: release/run ## Start release process
 update: ## Update makefiles for all repositories
 	$(ROOT_DIR)/internal/scripts/admin/update.sh
 
+.PHONY: multi/copy
+multi/copy: ### Copy file for multiple repositories
+	@read -p "Which source file to copy? (ex: src.md): " src && \
+	read -p "Which source file to copy? (ex: dest.md): " dest && \
+	$(ROOT_DIR)/internal/scripts/admin/copy.sh "$${src}" "$${dest}"
+
 .PHONY: multi/commit
 multi/commit: ### Commit all files for multiple repositories
 	@read -p "Which branch to commit? (ex: feat/foo-bar): " branch && \
