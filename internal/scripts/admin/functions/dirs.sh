@@ -10,8 +10,8 @@ function describe_dirs(){
 
 function find_dirs(){
   local base_dir="$1"
-  find "${base_dir}" -type d -maxdepth 2 -name '*-action' || echo ''
-  find "${base_dir}" -type d -maxdepth 2 -name '*-workflows' || echo ''
-  find "${base_dir}" -type d -maxdepth 2 -name 'template*' || echo ''
-  find "${base_dir}" -type d -maxdepth 2 -name 'configurations' || echo ''
+  find "${base_dir}" -type d -mindepth 2 -maxdepth 2 -name '*-action' || echo ''
+  find "${base_dir}" -type d -mindepth 2 -maxdepth 2 -name '*-workflows' || echo ''
+  find "${base_dir}" -type d -mindepth 2 -maxdepth 2 -name 'template*' || echo ''
+  find "${base_dir}" -type d -mindepth 2 -maxdepth 2 -name 'configurations' || echo ''
 }
