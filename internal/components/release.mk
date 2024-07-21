@@ -40,7 +40,7 @@ release/minor: ### Release minor version
 release/major: ### Release major version
 	@read -p "Confirm major version upgrade? (y/N):" answer && \
 	case "$${answer}" in \
-	  [yY]*) $(GH) workflow run $(RELEASE_WORKFLOW) -f level=major; make release/show ;; \
+	  [yY]*) $(GH) workflow run $(RELEASE_WORKFLOW) -f bump-level=major; make release/show ;; \
 	  *) echo "Cancel major version upgrade." ;; \
 	esac
 
