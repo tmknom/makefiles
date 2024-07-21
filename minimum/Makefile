@@ -21,6 +21,8 @@ help: internal/init help/primary ## Display help (details: make help/all)
 
 # Targets: Release
 -include $(COMPONENTS_DIR)/release.mk
+.PHONY: release
+release: release/run ## Start release process
 
 # Targets: Internal
 -include $(COMPONENTS_DIR)/internal.mk
