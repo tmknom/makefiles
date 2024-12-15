@@ -11,6 +11,9 @@ GIT ?= $(shell \command -v git 2>/dev/null)
 GH ?= $(shell \command -v gh 2>/dev/null)
 
 # Fundamentals
+REPO_ORIGIN ?= $(shell \git config --get remote.origin.url)
+REPO_NAME = $(shell \basename -s .git $(REPO_ORIGIN))
+REPO_OWNER = $(shell \gh config get -h github.com user)
 ROOT_DIR ?= $(shell $(GIT) rev-parse --show-toplevel)
 MAKEFILES_SELF ?= $(shell cut -d/ -f1 <<<$(lastword $(MAKEFILE_LIST)))
 SCRIPTS_DIR ?= $(__MAKEFILES_SCRIPTS_DIR)
