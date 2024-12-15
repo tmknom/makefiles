@@ -31,6 +31,14 @@ Run `make help` to view a list of available targets.
 > [!NOTE]
 > Highly recommend adding the `.makefiles` directory to your `.gitignore`.
 
+### Go
+
+```makefile
+-include .makefiles/go/Makefile
+.makefiles/go/Makefile:
+	@git clone https://github.com/tmknom/makefiles.git .makefiles >/dev/null 2>&1
+```
+
 ### Composite Action
 
 ```makefile
@@ -52,6 +60,7 @@ Run `make help` to view a list of available targets.
 - [dockerfiles](https://github.com/tmknom/dockerfiles): Collection of Dockerfiles.
 - [configurations](https://github.com/tmknom/configurations): Collection of configurations.
 - [template](https://github.com/tmknom/template): The template repository.
+- [template-go](https://github.com/tmknom/template-composite-action): Template repository for Go.
 - [template-composite-action](https://github.com/tmknom/template-composite-action): Template repository for Composite Action.
 - [template-reusable-workflows](https://github.com/tmknom/template-reusable-workflows): Template repository for Reusable Workflows.
 
