@@ -49,6 +49,4 @@ release/show:
 	@echo 'Starting release...'
 	@sleep 5
 	@id=$$($(GH) run list --limit 1 --json databaseId --jq '.[0].databaseId' --workflow $(RELEASE_WORKFLOW)) && \
-	$(GH) run watch $${id}
-	@sleep 1
-	$(GH) release view --web
+	$(GH) run view --web $${id}
