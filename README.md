@@ -73,8 +73,4 @@ Run `make help` to view a list of available targets.
 
 See [GitHub Releases][releases].
 
-## License
-
-Apache 2 Licensed. See [LICENSE](LICENSE) for full details.
-
 [releases]: https://github.com/tmknom/makefiles/releases
