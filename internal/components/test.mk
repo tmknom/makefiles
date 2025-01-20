@@ -22,7 +22,7 @@ DEFAULT_BRANCH ?= $(shell $(GH) repo view --json=defaultBranchRef --jq=.defaultB
 test/run: ### Run test workflow
 	@if [[ "$(CURRENT_BRANCH)" != "$(DEFAULT_BRANCH)" ]]; then \
 		echo "Push: $(CURRENT_BRANCH)"; \
-		$(GIT) push origin $(CURRENT_BRANCH) --force 2>/dev/null; \
+		$(GIT) push origin $(CURRENT_BRANCH) --force-with-lease --force-if-includes 2>/dev/null; \
 	fi
 	$(GH) workflow run $(TEST_WORKFLOW) --ref $(CURRENT_BRANCH)
 	@sleep 2
