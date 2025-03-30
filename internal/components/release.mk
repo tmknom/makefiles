@@ -18,13 +18,19 @@ RELEASE_WORKFLOW ?= release.yml
 # Targets
 .PHONY: release/run
 release/run: ### Run release workflow
-	@read -p "Bump up to (patch / minor / major): " answer && \
+	@read -p "Bump up to (auto / patch / minor / major): " answer && \
 	case "$${answer}" in \
+		'auto') make release/auto ;; \
 		'patch') make release/patch ;; \
 		'minor') make release/minor ;; \
 		'major') make release/major ;; \
 		*) echo "Error: invalid parameter: $${answer}"; exit 1 ;; \
 	esac
+
+.PHONY: release/auto
+release/auto: ### Release auto version
+	$(GH) workflow run $(RELEASE_WORKFLOW) -f bump-level=auto || true
+	make release/show
 
 .PHONY: release/patch
 release/patch: ### Release patch version
