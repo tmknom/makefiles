@@ -9,7 +9,7 @@ TEST_WORKFLOW ?= test.yml
 RELEASE_WORKFLOW ?= release.yml
 
 # Include initial components
-COMPONENTS_DIR := $(shell cut -d/ -f1 <<<$(lastword $(MAKEFILE_LIST)))/internal/components
+COMPONENTS_DIR := ${XDG_DATA_HOME}/makefiles/internal/components
 include $(COMPONENTS_DIR)/flags.mk
 include $(COMPONENTS_DIR)/variables.mk
 
