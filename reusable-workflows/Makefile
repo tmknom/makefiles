@@ -10,14 +10,14 @@ TEST_WORKFLOW ?= _internal-test.yml
 RELEASE_WORKFLOW ?= _internal-release.yml
 
 # Include initial components
-COMPONENTS_DIR := ${XDG_DATA_HOME}/makefilesinternal/components
+COMPONENTS_DIR := ${XDG_DATA_HOME}/makefiles/internal/components
 include $(COMPONENTS_DIR)/flags.mk
 include $(COMPONENTS_DIR)/variables.mk
 
 # Targets: Help
 -include $(COMPONENTS_DIR)/help.mk
 .PHONY: help
-help: internal/init help/primary ## Display help (details: make help/all)
+help: help/primary ## Display help (details: make help/all)
 
 # Targets: Build
 -include $(COMPONENTS_DIR)/workflow.mk
