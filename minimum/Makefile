@@ -5,7 +5,7 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 # Include initial components
-COMPONENTS_DIR ?= ${XDG_DATA_HOME}/makefilesinternal/components
+COMPONENTS_DIR ?= ${XDG_DATA_HOME}/makefiles/internal/components
 include $(COMPONENTS_DIR)/flags.mk
 include $(COMPONENTS_DIR)/variables.mk
 
