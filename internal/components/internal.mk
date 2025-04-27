@@ -12,8 +12,7 @@
 # Targets
 .PHONY: internal/update
 internal/update: ### Update makefiles in itself
-	cd $(MAKEFILES_SELF) && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
-	cd $(CONFIG_DIR) && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
+	cd $(ROOT_DIR)/.makefiles && $(GIT) stash && $(GIT) switch main && $(GIT) pull origin main
 
 # Targets: Internal/Debug
 .PHONY: internal/debug/test
