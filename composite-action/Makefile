@@ -1,0 +1,1 @@
+-include ${XDG_DATA_HOME}/makefiles/internal/orchestrations/composite-action.mk
