@@ -12,7 +12,7 @@ include $(COMPONENTS_DIR)/variables.mk
 # Targets: Help
 -include $(COMPONENTS_DIR)/help.mk
 .PHONY: help
-help: internal/init help/primary ## Display help (details: make help/all)
+help: help/primary ## Display help (details: make help/all)
 
 # Targets: Build
 -include $(COMPONENTS_DIR)/workflow.mk
